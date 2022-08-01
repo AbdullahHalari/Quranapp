@@ -210,7 +210,7 @@ class _LoginState extends State<Login> {
                     loading
                         ? Center(
                             child: new CircularProgressIndicator(
-                              backgroundColor: Colors.amber[800],
+                              backgroundColor: Color.fromARGB(255, 6, 23, 153),
                               valueColor:
                                   new AlwaysStoppedAnimation<Color>(Colors.red),
                               strokeWidth: 10,
@@ -241,8 +241,8 @@ class _LoginState extends State<Login> {
                                 child: const Text(
                                   "reset password",
                                   style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontSize: 15,
+                                    color: Color.fromARGB(255, 255, 0, 0),
                                   ),
                                 )))),
                     Container(

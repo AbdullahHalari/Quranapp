@@ -15,6 +15,7 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   bool _isHidden = true;
+ 
   @override
   bool loading = false;
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class _SignupState extends State<Signup> {
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController cpasswordController = TextEditingController();
     final TextEditingController urlcontroller = TextEditingController();
+
 
     void register() async {
       FirebaseAuth auth = FirebaseAuth.instance;
@@ -280,7 +282,7 @@ class _SignupState extends State<Signup> {
                         loading
                             ? Center(
                                 child: new CircularProgressIndicator(
-                                  backgroundColor: Colors.amber[800],
+                                  backgroundColor: Color.fromARGB(255, 6, 23, 153),
                                   valueColor: new AlwaysStoppedAnimation<Color>(
                                       Colors.red),
                                   strokeWidth: 10,
