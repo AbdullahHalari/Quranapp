@@ -74,7 +74,8 @@ class _HomeState extends State<Home> {
               ],
             ),
           ) ??
-          false; //if showDialouge had returned null, then return false
+          
+      false; //if showDialouge had returned null, then return false
     }
 
     return WillPopScope(
@@ -105,7 +106,9 @@ class _HomeState extends State<Home> {
                     accountName: Text(full_name),
                     accountEmail: Text(email),
                     currentAccountPicture: const CircleAvatar(
-                        backgroundImage: AssetImage("images/logo.png")),
+                        backgroundImage: AssetImage("images/logo.png"),
+                        backgroundColor: Colors.transparent,
+                        ),
                     // onDetailsPressed: () {},
                   ),
                   const ListTile(

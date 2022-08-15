@@ -1,17 +1,26 @@
-// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: curly_braces_in_flow_control_structures, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 
 // import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+// import 'package:quranapp/SurahViewBuilder.dart';
+import 'package:quranapp/ayat.dart';
+import 'package:quranapp/login.dart';
+import 'package:quranapp/main.dart';
+import 'package:quranapp/pdf.dart';
+// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
 // import 'package:quranapp/ayat.dart';
 import 'package:quranapp/reset.dart';
-// import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
+
 
 class Quran_api extends StatefulWidget {
   const Quran_api({Key? key}) : super(key: key);
@@ -21,22 +30,23 @@ class Quran_api extends StatefulWidget {
 }
 
 class _Quran_apiState extends State<Quran_api> {
+ 
   // getuser() async {
   final topUrl =
-      "https://raw.githubusercontent.com/AbdullahHalari/Quran_api/master/quran2.json";
+      "images/quran2.json";
   // final nexturl =
   //     "https://quranenc.com/api/v1/translation/sura/urdu_junagarhi/2";
   // late PDFDocument document;
 
   Future<List<usermodel>> getArticle() async {
-    Response res = await get(Uri.parse(topUrl));
+    String res = await DefaultAssetBundle.of(context).loadString("images/quran2.json");
     // Response res1 = await get(Uri.parse(nexturl));
 
-    if (res.statusCode == 200) {
-      Map<String, dynamic> json = jsonDecode(res.body);
+    
+      Map<String, dynamic> json = jsonDecode(res);
       // Map<String, dynamic> json1 = jsonDecode(res1.body);
 
-      List<dynamic>body = json['data'];
+      List<dynamic> body = json['data'];
       // List<dynamic> body1 = json1['results'];
 
       List<usermodel> articles =
@@ -45,14 +55,20 @@ class _Quran_apiState extends State<Quran_api> {
       //     body1.map((dynamic item) => Result.fromJson(item)).toList();
 
       // print(articles1);
-      print(articles);
+      // print(articles);
       return articles;
-    } else {
-      throw ("Not Found");
-    }
+    
     // }
   }
 
+  //  late PdfViewerController _pdfViewerController;
+
+  // @override
+  // void initState() {
+  //   _pdfViewerController = PdfViewerController();
+  //   super.initState();
+  // }
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +77,12 @@ class _Quran_apiState extends State<Quran_api> {
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(
-                  child: Center(child: CircularProgressIndicator()),
+                  child: Center(child: new CircularProgressIndicator(
+                              backgroundColor: Color.fromARGB(255, 6, 23, 153),
+                              valueColor:
+                                  new AlwaysStoppedAnimation<Color>(Colors.red),
+                              strokeWidth: 8,
+                            ),),
                 );
               } else
                 // ignore: curly_braces_in_flow_control_structures
@@ -70,11 +91,17 @@ class _Quran_apiState extends State<Quran_api> {
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, i) {
                     return InkWell(
-                        // onTap: () {
-                        //   document = PDFDocument.fromURL(snapshot.data[i].pdf != null
-                        //           ? snapshot.data[i].pdf
-                        //           : 'wait..',) as PDFDocument;
-                        // },
+                        onTap: () {
+                          
+                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => 
+                            // Myy()
+                          pdf(snapshot.data[i].number)
+                          // SurahViewBuilder(pages: snapshot.data[i].number)
+                           ),);
+
+
+
+                        },
                         child: ListTile(
                             leading: CircleAvatar(
                               // radius: 20,
@@ -119,7 +146,7 @@ class _Quran_apiState extends State<Quran_api> {
                                 //   padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
                                 // child:
                                 Container(
-                              width: 90,
+                              width: 100,
                               child: Text(
                                 snapshot.data[i].name != null
                                     ? snapshot.data[i].name
@@ -127,7 +154,7 @@ class _Quran_apiState extends State<Quran_api> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
-                                  fontSize: 15.0,
+                                  fontSize: 17.0,
                                   // ),
                                 ),
                               ),
@@ -144,8 +171,7 @@ class usermodel {
   String englishNameTranslation;
   String englishName;
   int number;
-  String pdf;
-  // int numberOfAyahs;
+  // int page;
 
   usermodel({
     // required this.ayahs,
@@ -153,8 +179,7 @@ class usermodel {
     required this.englishNameTranslation,
     required this.number,
     required this.englishName,
-    required this.pdf,
-    // required this.numberOfAyahs,
+    // required this.page,
   });
   factory usermodel.fromJson(Map<String, dynamic> json) {
     return usermodel(
@@ -163,35 +188,35 @@ class usermodel {
       englishNameTranslation: json['englishNameTranslation'] as String,
       englishName: json['englishName'] as String,
       number: json['number'],
-      pdf: json['pdf']
+      // page: json['page'],
     );
   }
 }
 
-class Result {
-  String id;
-  String sura;
-  String aya;
-  String arabicText;
-  String translation;
-  String footnotes;
+// class Result {
+//   String id;
+//   String sura;
+//   String aya;
+//   String arabicText;
+//   String translation;
+//   String footnotes;
 
-  Result(
-      {required this.id,
-      required this.sura,
-      required this.aya,
-      required this.arabicText,
-      required this.translation,
-      required this.footnotes});
+//   Result(
+//       {required this.id,
+//       required this.sura,
+//       required this.aya,
+//       required this.arabicText,
+//       required this.translation,
+//       required this.footnotes});
 
-  factory Result.fromJson(Map<String, dynamic> json) {
-    return Result(
-      id: json['id'],
-      sura: json['sura'],
-      aya: json['aya'],
-      arabicText: json['arabic_text'],
-      translation: json['translation'],
-      footnotes: json['footnotes'],
-    );
-  }
-}
+//   factory Result.fromJson(Map<String, dynamic> json) {
+//     return Result(
+//       id: json['id'],
+//       sura: json['sura'],
+//       aya: json['aya'],
+//       arabicText: json['arabic_text'],
+//       translation: json['translation'],
+//       footnotes: json['footnotes'],
+//     );
+//   }
+// }

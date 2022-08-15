@@ -37,12 +37,20 @@ dependencies:
   firebase_core: ^1.20.0
   firebase_auth: ^3.6.1
   firebase_storage: ^10.3.4  
+  # syncfusion_flutter_pdfviewer: ^20.2.43-beta
+
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  advance_pdf_viewer: ^2.0.1
+  device_info: ^2.0.3
+  native_pdf_view: ^6.0.0+1
+  # native_pdf_view: ^2.1.1
+  screen: ^0.0.5
+  syncfusion_flutter_pdfviewer: ^20.2.43-beta
+  performance: ^0.1.1
+  # advance_pdf_viewer: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +82,9 @@ flutter:
     - images/logo.png
     - images/1.png
     - images/2.png
+    - images/quran.pdf
+    - images/quran1.pdf
+    - images/quran2.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -285,7 +285,7 @@ class _SignupState extends State<Signup> {
                                   backgroundColor: Color.fromARGB(255, 6, 23, 153),
                                   valueColor: new AlwaysStoppedAnimation<Color>(
                                       Colors.red),
-                                  strokeWidth: 10,
+                                  strokeWidth: 8,
                                 ),
                               )
                             : Container(
