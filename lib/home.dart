@@ -3,8 +3,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quranapp/Globals.dart';
 import 'package:quranapp/login.dart';
+import 'package:quranapp/pdf.dart';
 import 'package:quranapp/quran_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:quranapp/services/shared_preferences_service.dart';
 
 class Home extends StatefulWidget {
@@ -30,6 +33,19 @@ class _HomeState extends State<Home> {
       email = data.data()!['email'];
     });
   }
+
+  // late SharedPreferences prefs;
+
+  /// get bookmarkPage from sharedPreferences
+  // getLastViewedPage() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   if (prefs.containsKey(LAST_VIEWED_PAGE)) {
+  //     var _lastViewedPage = prefs.getInt(LAST_VIEWED_PAGE);
+  //     setState(() {
+  //       int? lastViewedPage = _lastViewedPage;
+  //     });
+  //   }
+  // }
 
   void initState() {
     super.initState();
@@ -58,24 +74,34 @@ class _HomeState extends State<Home> {
             //the return value will be from "Yes" or "No" options
             context: context,
             builder: (context) => AlertDialog(
-              title: Text('Exit App'),
-              content: Text('Do you want to exit an App?'),
+              backgroundColor: Color.fromARGB(255, 247, 208, 90),
+              title: Text('القرآن الكريم',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+              ),
+              ),
+              content: Text('Do you want to exit القرآن الكريم?'),
               actions: [
                 ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(false),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 4, 56, 100),
+                  ),
                   //return false when click on "NO"
                   child: Text('No'),
                 ),
                 ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(true),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 4, 56, 100),
+                  ),
                   //return true when click on "Yes"
                   child: Text('Yes'),
                 ),
               ],
             ),
           ) ??
-          
-      false; //if showDialouge had returned null, then return false
+          false; //if showDialouge had returned null, then return false
     }
 
     return WillPopScope(
@@ -93,6 +119,22 @@ class _HomeState extends State<Home> {
                 ),
               ),
               backgroundColor: const Color.fromARGB(255, 4, 56, 100),
+              // actions: <Widget>[
+              //   IconButton(
+              //     icon: const Icon(Icons.navigate_next),
+              //     onPressed: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (BuildContext context) =>
+              //                   getLastViewedPage()));
+              //       // _pdfController.nextPage(
+              //       //   curve: Curves.ease,
+              //       //   duration: const Duration(milliseconds: 100),
+              //       // );
+              //     },
+              //   ),
+              // ],
             ),
             drawer: Drawer(
               width: 250,
@@ -106,9 +148,9 @@ class _HomeState extends State<Home> {
                     accountName: Text(full_name),
                     accountEmail: Text(email),
                     currentAccountPicture: const CircleAvatar(
-                        backgroundImage: AssetImage("images/logo.png"),
-                        backgroundColor: Colors.transparent,
-                        ),
+                      backgroundImage: AssetImage("images/logo.png"),
+                      backgroundColor: Colors.transparent,
+                    ),
                     // onDetailsPressed: () {},
                   ),
                   const ListTile(

@@ -1,4 +1,4 @@
-// ignore_for_file: curly_braces_in_flow_control_structures, prefer_typing_uninitialized_variables
+// ignore_for_file: curly_braces_in_flow_control_structures, prefer_typing_uninitialized_variables, unnecessary_null_comparison
 
 import 'dart:convert';
 
@@ -21,7 +21,6 @@ import 'package:quranapp/pdf.dart';
 // import 'package:quranapp/ayat.dart';
 import 'package:quranapp/reset.dart';
 
-
 class Quran_api extends StatefulWidget {
   const Quran_api({Key? key}) : super(key: key);
 
@@ -30,34 +29,32 @@ class Quran_api extends StatefulWidget {
 }
 
 class _Quran_apiState extends State<Quran_api> {
- 
   // getuser() async {
-  final topUrl =
-      "images/quran2.json";
+  final topUrl = "images/quran2.json";
   // final nexturl =
   //     "https://quranenc.com/api/v1/translation/sura/urdu_junagarhi/2";
   // late PDFDocument document;
 
   Future<List<usermodel>> getArticle() async {
-    String res = await DefaultAssetBundle.of(context).loadString("images/quran2.json");
+    String res =
+        await DefaultAssetBundle.of(context).loadString("images/quran2.json");
     // Response res1 = await get(Uri.parse(nexturl));
 
-    
-      Map<String, dynamic> json = jsonDecode(res);
-      // Map<String, dynamic> json1 = jsonDecode(res1.body);
+    Map<String, dynamic> json = jsonDecode(res);
+    // Map<String, dynamic> json1 = jsonDecode(res1.body);
 
-      List<dynamic> body = json['data'];
-      // List<dynamic> body1 = json1['results'];
+    List<dynamic> body = json['data'];
+    // List<dynamic> body1 = json1['results'];
 
-      List<usermodel> articles =
-          body.map((dynamic item) => usermodel.fromJson(item)).toList();
-      // List<Result> articles1 =
-      //     body1.map((dynamic item) => Result.fromJson(item)).toList();
+    List<usermodel> articles =
+        body.map((dynamic item) => usermodel.fromJson(item)).toList();
+    // List<Result> articles1 =
+    //     body1.map((dynamic item) => Result.fromJson(item)).toList();
 
-      // print(articles1);
-      // print(articles);
-      return articles;
-    
+    // print(articles1);
+    // print(articles);
+    return articles;
+
     // }
   }
 
@@ -68,7 +65,7 @@ class _Quran_apiState extends State<Quran_api> {
   //   _pdfViewerController = PdfViewerController();
   //   super.initState();
   // }
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,12 +74,13 @@ class _Quran_apiState extends State<Quran_api> {
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(
-                  child: Center(child: new CircularProgressIndicator(
-                              backgroundColor: Color.fromARGB(255, 6, 23, 153),
-                              valueColor:
-                                  new AlwaysStoppedAnimation<Color>(Colors.red),
-                              strokeWidth: 8,
-                            ),),
+                  child: Center(
+                    child: new CircularProgressIndicator(
+                      backgroundColor: Color.fromARGB(255, 6, 23, 153),
+                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
+                      strokeWidth: 8,
+                    ),
+                  ),
                 );
               } else
                 // ignore: curly_braces_in_flow_control_structures
@@ -92,20 +90,20 @@ class _Quran_apiState extends State<Quran_api> {
                   itemBuilder: (context, i) {
                     return InkWell(
                         onTap: () {
-                          
-                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => 
-                            // Myy()
-                          pdf(snapshot.data[i].number)
-                          // SurahViewBuilder(pages: snapshot.data[i].number)
-                           ),);
-
-
-
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    // Myy()
+                                    pdf(Surah_number: snapshot.data[i].page)
+                                // SurahViewBuilder(pages: snapshot.data[i].number)
+                                ),
+                          );
                         },
                         child: ListTile(
                             leading: CircleAvatar(
                               // radius: 20,
-                              // backgroundColor: Color.fromARGB(255, 4, 56, 100),
+                              backgroundColor: Colors.transparent,
                               backgroundImage: AssetImage('images/1.png'),
                               child: ClipOval(
                                   child: Text(
@@ -138,7 +136,9 @@ class _Quran_apiState extends State<Quran_api> {
                                   ? snapshot.data[i].englishNameTranslation
                                   : 'Not Found',
                               style: TextStyle(
+                                color: Color.fromARGB(255, 77, 72, 72),
                                 fontSize: 15.0,
+                                // ),
                               ),
                             ),
                             trailing:
@@ -147,17 +147,40 @@ class _Quran_apiState extends State<Quran_api> {
                                 // child:
                                 Container(
                               width: 100,
-                              child: Text(
-                                snapshot.data[i].name != null
-                                    ? snapshot.data[i].name
-                                    : 'سُوْرَۃُ...',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontSize: 17.0,
-                                  // ),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: snapshot.data[i].name != null
+                                          ? snapshot.data[i].name
+                                          : 'سُوْرَۃُ...',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 17.0,
+                                        // ),
+                                      ),
+                                    ),
+                                    TextSpan(
+                                        text:
+                                            "\n (Page no: ${snapshot.data[i].page.toString() != null ? snapshot.data[i].page.toString() : 'Not Found'})",
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 59, 67, 74))),
+                                  ],
                                 ),
                               ),
+                              // Text(
+                              // snapshot.data[i].name != null
+                              //     ? snapshot.data[i].name
+                              //     : 'سُوْرَۃُ...',
+                              // style: TextStyle(
+                              //   fontWeight: FontWeight.bold,
+                              //   color: Colors.black,
+                              //   fontSize: 17.0,
+                              //   // ),
+                              // ),
+                              // ),
                             )));
                   },
                 );
@@ -171,7 +194,7 @@ class usermodel {
   String englishNameTranslation;
   String englishName;
   int number;
-  // int page;
+  int page;
 
   usermodel({
     // required this.ayahs,
@@ -179,7 +202,7 @@ class usermodel {
     required this.englishNameTranslation,
     required this.number,
     required this.englishName,
-    // required this.page,
+    required this.page,
   });
   factory usermodel.fromJson(Map<String, dynamic> json) {
     return usermodel(
@@ -188,7 +211,7 @@ class usermodel {
       englishNameTranslation: json['englishNameTranslation'] as String,
       englishName: json['englishName'] as String,
       number: json['number'],
-      // page: json['page'],
+      page: json['page'],
     );
   }
 }
