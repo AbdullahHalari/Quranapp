@@ -46,8 +46,8 @@ class MyApp extends StatelessWidget {
             // routes: routes,
             
               debugShowCheckedModeBanner: false,
-                  // theme: new ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 252, 233, 195)),
-              title: 'HUNGRY MAN',
+                  // theme: new ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 4, 56, 100)),
+              title: 'Quran App',
               home: userprofile());
         }
 

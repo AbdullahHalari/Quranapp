@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:quranapp/drawer.dart';
+import 'package:quranapp/home.dart';
 import 'package:quranapp/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -54,7 +56,7 @@ class _SignupState extends State<Signup> {
           loading = false;
         });
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Login()));
+            context, MaterialPageRoute(builder: (context) => const Home()));
         print("user is registerd");
       } catch (e) {
         Fluttertoast.showToast(msg: 'error caught: $e');
@@ -77,7 +79,7 @@ class _SignupState extends State<Signup> {
                 constraints: BoxConstraints.expand(),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("images/bg.jpg"),
+                    image: AssetImage("images/bg2.jpg"),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -86,16 +88,16 @@ class _SignupState extends State<Signup> {
                     child: ListView(
                       children: <Widget>[
                         Container(
-                          child: Image.asset('images/logo.png',
+                          child: Image.asset('images/logo1.png',
                               width: 100, height: 150),
                         ),
                         Container(
                             alignment: Alignment.center,
                             padding: const EdgeInsets.all(3),
                             child: const Text(
-                              'Sign Up',
+                              'القرآن الكريم',
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
+                                  TextStyle(fontSize: 25, color: Colors.white),
                             )),
                         Container(
                           padding: const EdgeInsets.all(10),
@@ -294,7 +296,7 @@ class _SignupState extends State<Signup> {
                                     const EdgeInsets.fromLTRB(10, 10, 10, 10),
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: Color.fromARGB(255,6,23,153),
+                                      primary: Color.fromARGB(255,4,56,100),
                                       // padding: EdgeInsets.fromLTRB(100, 0, 100, 0)
                                     ),
                                     // textColor: Colors.black,
@@ -306,7 +308,7 @@ class _SignupState extends State<Signup> {
                           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Color.fromARGB(255, 6, 23, 153),
+                              primary: Color.fromARGB(255, 4, 56, 100),
                               // padding: EdgeInsets.fromLTRB(100, 0, 100, 0)
                             ),
 

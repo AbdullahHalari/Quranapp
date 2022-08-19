@@ -1,14 +1,12 @@
-// ignore_for_file: unnecessary_const, prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quranapp/Globals.dart';
 import 'package:quranapp/login.dart';
-import 'package:quranapp/pdf.dart';
 import 'package:quranapp/quran_api.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:quranapp/services/shared_preferences_service.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -18,9 +16,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // final PrefService _prefService = PrefService();
   String full_name = " loading....";
   String email = "loading....";
+
+  var date = DateTime.now();
+  var formatterDate = DateFormat('EEEE, d MMMM').format(DateTime.now());
+  var formatterTime = DateFormat('H:mm:ss').format(DateTime.now());
+
   void getData() async {
     // ignore: await_only_futures
     User? user = await FirebaseAuth.instance.currentUser;
@@ -33,19 +35,6 @@ class _HomeState extends State<Home> {
       email = data.data()!['email'];
     });
   }
-
-  // late SharedPreferences prefs;
-
-  /// get bookmarkPage from sharedPreferences
-  // getLastViewedPage() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   if (prefs.containsKey(LAST_VIEWED_PAGE)) {
-  //     var _lastViewedPage = prefs.getInt(LAST_VIEWED_PAGE);
-  //     setState(() {
-  //       int? lastViewedPage = _lastViewedPage;
-  //     });
-  //   }
-  // }
 
   void initState() {
     super.initState();
@@ -68,7 +57,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    Future<bool> showExitPopup() async {
+     Future<bool> showExitPopup() async {
       return await showDialog(
             //show confirm dialogue
             //the return value will be from "Yes" or "No" options
@@ -109,169 +98,421 @@ class _HomeState extends State<Home> {
         // ScaffoldMessenger.of(context).showSnackBar(
         //     SnackBar(content: Text('Please First login to enter the app')));
         onWillPop: showExitPopup,
-        child: Scaffold(
-            appBar: AppBar(
-              title: const Text(
-                "القرآن الكريم",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+        child:
+    
+    
+    
+    
+     Scaffold(
+        appBar: AppBar(
+            centerTitle: true,
+          title: const Text(
+            "القرآن الكريم",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 255, 255, 255)
+              
+            ),
+            
+          ),
+          backgroundColor: Color.fromARGB(255, 0, 0, 0)
+          // actions: <Widget>[
+          //   IconButton(
+          //     icon: const Icon(Icons.navigate_next),
+          //     onPressed: () {
+          //       Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //               builder: (BuildContext context) =>
+          //                   getLastViewedPage()));
+          //       // _pdfController.nextPage(
+          //       //   curve: Curves.ease,
+          //       //   duration: const Duration(milliseconds: 100),
+          //       // );
+          //     },
+          //   ),
+          // ],
+        ),
+        drawer: Drawer(
+          
+          width: 250,
+          child: ListView(
+            children: [
+              UserAccountsDrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 5, 70, 123),
+                  // color: Color.fromRGBO(0, 136, 204, 100),
+                ),
+                accountName: Text(full_name),
+                accountEmail: Text(email),
+                currentAccountPicture: const CircleAvatar(
+                  backgroundImage: AssetImage("images/logo1.png"),
+                  backgroundColor: Colors.transparent,
+                ),
+                // onDetailsPressed: () {},
+              ),
+              const ListTile(
+                leading: Icon(Icons.feedback),
+                title: Text("Feedback"),
+              ),
+              const ListTile(leading: Icon(Icons.people), title: Text("Share")),
+              const ListTile(
+                  leading: Icon(Icons.policy), title: Text("Privacy Policy")),
+              const ListTile(
+                  leading: Icon(Icons.rate_review_outlined),
+                  title: Text("Rate us")),
+              GestureDetector(
+                  onTap: () {
+                    signout();
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.logout),
+                    title: Text("Logout"),
+                  )),
+              const Divider(
+                height: 40,
+                thickness: 2.0,
+              ),
+            ],
+          ),
+        ),
+        body: Column(
+          children: [
+            //  SizedBox(height:20),
+
+            Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Color.fromARGB(255, 143, 156, 166),
+                ),
+                margin: EdgeInsets.all(8),
+                height: 80,
+                width: MediaQuery.of(context).size.width,
+                // width: 300,
+
+                // elevation: 10,
+                child: Column(children: [
+                  Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Color.fromARGB(255, 5, 70, 123),
+                      ),
+                      // margin:EdgeInsets.fromLTRB(0, 0, 0, 20),
+
+                      height: 60,
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                          // mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Image.asset(
+                                'images/icon2.png',
+                                width: 40,
+                                height: 40,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                              child: Text(
+                                formatterDate.toString(),
+                                style: TextStyle(
+                                    fontSize: 18.0, color: Colors.white),
+                              ),
+                            ),
+                          ])),
+                  Row(
+                      // mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                          child: Text(
+                            "Current Time: " + formatterTime,
+                            style:
+                                TextStyle(fontSize: 15.0, color: Colors.white),
+                          ),
+                        ),
+                      ])
+                ])),
+
+            SizedBox(height: 3),
+
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Color.fromARGB(255, 5, 70, 123),
+              ),
+              margin: EdgeInsets.all(8),
+              height: 60,
+              width: MediaQuery.of(context).size.width,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color: Color.fromARGB(255, 5, 70, 123),
+                // elevation: 10,
+                child: Row(
+                  // mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Image.asset(
+                        'images/icon1.png',
+                        width: 40,
+                        height: 40,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      child: Text(
+                        'Surah Yunus',
+                        style: TextStyle(fontSize: 21.0, color: Colors.white),
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(50, 0, 0, 0),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              "Resume",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 5, 70, 123),
+                              ),
+                            )))
+                  ],
                 ),
               ),
-              backgroundColor: const Color.fromARGB(255, 4, 56, 100),
-              // actions: <Widget>[
-              //   IconButton(
-              //     icon: const Icon(Icons.navigate_next),
-              //     onPressed: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (BuildContext context) =>
-              //                   getLastViewedPage()));
-              //       // _pdfController.nextPage(
-              //       //   curve: Curves.ease,
-              //       //   duration: const Duration(milliseconds: 100),
-              //       // );
-              //     },
-              //   ),
-              // ],
             ),
-            drawer: Drawer(
-              width: 250,
-              child: ListView(
-                children: [
-                  UserAccountsDrawerHeader(
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 5, 70, 123),
-                      // color: Color.fromRGBO(0, 136, 204, 100),
+            Expanded(
+                child: SizedBox(
+              height: 50.0,
+              child: GridView.count(
+                crossAxisCount: 2,
+                primary: false,
+                mainAxisSpacing: 2,
+                crossAxisSpacing: 2,
+                children: <Widget>[
+                  //card 1
+                  CupertinoButton(
+                    child: Card(
+                      child: Container(
+                        height: 200,
+                        width: 200,
+                        decoration: BoxDecoration(
+                           border: Border.all(color: Color.fromARGB(255, 5, 70, 123)),
+                          // image: DecorationImage(
+                          //   image: AssetImage("images/1.jpg"),
+                          //   fit: BoxFit.cover,
+                          // ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          children: [
+                          Padding(
+                      padding: EdgeInsets.all(18),
+                      child: Image.asset(
+                        'images/icon3.png',
+                        width: 50,
+                        height: 50,
+                        color: Color.fromARGB(255, 5, 70, 123)
+                      ),
                     ),
-                    accountName: Text(full_name),
-                    accountEmail: Text(email),
-                    currentAccountPicture: const CircleAvatar(
-                      backgroundImage: AssetImage("images/logo.png"),
-                      backgroundColor: Colors.transparent,
+                           Text(
+                            "Surah Index",
+                            style: TextStyle(
+                               color: Color.fromARGB(255, 5, 70, 123),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600),
+                          ),]
+                        ),
+                      ),
                     ),
-                    // onDetailsPressed: () {},
+                    onPressed: () {
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (BuildContext context) => CupertinoAlertDialog(
+                          title: const Text('Card is clicked.'),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: const Text('ok'),
+                              onPressed: () {
+                                Navigator.pop(context, 'ok');
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                  const ListTile(
-                    leading: Icon(Icons.contacts),
-                    title: Text("Contacts us"),
+
+                  //card2
+
+                  CupertinoButton(
+                    child: Card(
+                      child: Container(
+                        height: 200,
+                        width: 200,
+                        decoration: BoxDecoration(
+                           border: Border.all(color: Color.fromARGB(255, 5, 70, 123)),
+                          // image: DecorationImage(
+                          //   image: AssetImage("images/1.jpg"),
+                          //   fit: BoxFit.cover,
+                          // ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                         child: Column(
+                          children: [
+                          Padding(
+                      padding: EdgeInsets.all(18),
+                      child: Image.asset(
+                        'images/icon4.png',
+                        width: 50,
+                        height: 50,
+                        color: Color.fromARGB(255, 5, 70, 123)
+                      ),
+                    ),
+                           Text(
+                            "Need to Know",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 5, 70, 123),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600),
+                          ),]
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (BuildContext context) => CupertinoAlertDialog(
+                          title: const Text('Card is clicked.'),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: const Text('ok'),
+                              onPressed: () {
+                                Navigator.pop(context, 'ok');
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                  const ListTile(
-                      leading: Icon(Icons.people), title: Text("Share")),
-                  const ListTile(
-                      leading: Icon(Icons.policy),
-                      title: Text("Privacy Policy")),
-                  const ListTile(
-                      leading: Icon(Icons.settings), title: Text("Settings")),
-                  GestureDetector(
-                      onTap: () {
-                        signout();
-                      },
-                      child: ListTile(
-                        leading: Icon(Icons.logout),
-                        title: Text("Logout"),
-                      )),
-                  const Divider(
-                    height: 40,
-                    thickness: 2.0,
+
+                  //card3
+                  CupertinoButton(
+                    child: Card(
+                      child: Container(
+                        height: 200,
+                        width: 200,
+                        decoration: BoxDecoration(
+                           border: Border.all(color: Color.fromARGB(255, 5, 70, 123)),
+                          // image: DecorationImage(
+                          //   image: AssetImage("images/1.jpg"),
+                          //   fit: BoxFit.cover,
+                          // ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          children: [
+                          Padding(
+                      padding: EdgeInsets.all(18),
+                      child: Image.asset(
+                        'images/icon5.png',
+                        width: 50,
+                        height: 50,
+                        color: Color.fromARGB(255, 5, 70, 123)
+                      ),
+                    ),
+                           Text(
+                            "Quran Info",
+                            style: TextStyle(
+                               color: Color.fromARGB(255, 5, 70, 123),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600),
+                          ),]
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (BuildContext context) => CupertinoAlertDialog(
+                          title: const Text('Card is clicked.'),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: const Text('ok'),
+                              onPressed: () {
+                                Navigator.pop(context, 'ok');
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+
+                  //card4
+                  CupertinoButton(
+                    child: Card(
+                      child: Container(
+                        height: 200,
+                        width: 200,
+                        decoration: BoxDecoration(
+                         border: Border.all(color: Color.fromARGB(255, 5, 70, 123)),
+                          // image: DecorationImage(
+                          //   image: AssetImage("images/1.jpg"),
+                          //   fit: BoxFit.cover,
+                          // ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          children: [
+                          Padding(
+                      padding: EdgeInsets.all(18),
+                      child: Image.asset(
+                        'images/icon6.png',
+                        width: 50,
+                        height: 50,
+                        color: Color.fromARGB(255, 5, 70, 123),
+                      ),
+                    ),
+                           Text(
+                            "Goto Page ",
+                            style: TextStyle(
+                               color: Color.fromARGB(255, 5, 70, 123),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600),
+                          ),]
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (BuildContext context) => CupertinoAlertDialog(
+                          title: const Text('Card is clicked.'),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: const Text('ok'),
+                              onPressed: () {
+                                Navigator.pop(context, 'ok');
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
-            ),
-            body: Quran_api()
-            // SingleChildScrollView(
-            //     child: Topstories(),
-            //     Column(
-            //   children: [
-            //     chat("Surah Fatiha", "verses  7", "سُوْرَۃُ الفَاتِحَة"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah Bakarakh", "verses  286", "سُوْرَۃُ البَقَرَة"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah Alay Imran", "verses  200", "سُوْرَۃ آلِ عِمْرَان"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah Nisa", "verses  176", "سُوْرَۃُ النِّسَاء"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah Maidah", "verses  120", "سُوْرَۃُ المَائِدَة"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah Anam", "verses  165", "سُوْرَۃُ الأَنْعَام"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah A’araf", "verses  206", "سُوْرَۃُ الأَعْرَاف"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah Anfal", "verses  75", "سُوْرَۃُ الأَنْفَال"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah Toba	", "verses  129", "سُوْرَۃُ التَّوْبَة"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah Younas	", "verses  109", "سُوْرَۃ يُونُس"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah Hud	", "verses  123", "سُوْرَۃ هُود"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //     chat("Surah Yousaf	", "verses  111", "سُوْرَۃ يُوسُف"),
-            //     const Divider(
-            //       height: 5,
-            //     ),
-            //   ],
-            //
-            // )
-            ));
-    // );
+            ))
+          ],
+        )));
   }
 }
-
-// Widget chat(name, text, time) {
-//   return GestureDetector(
-//     onTap: () {
-//                     print("hello");
-//                   },
-//     child:
-// ListTile(
-//   leading: CircleAvatar(
-//     radius: 20,
-//     backgroundColor: Colors.transparent,
-//     backgroundImage: AssetImage('images/quran.png'),
-//     child: ClipOval(
-//       child:Text("1")
-//       //  Image.asset(
-//       //   'images/quran.png',
-//       //   fit: BoxFit.fill,
-//       // ),
-//     ),
-//   ),
-//   title: Text(
-//     name,
-//     style: const TextStyle(fontSize: 20),
-//   ),
-//   subtitle: Text(text),
-//   trailing: Column(
-//     mainAxisAlignment: MainAxisAlignment.spaceAround,
-//     children: [
-//       Text(
-//         time,
-//         style: const TextStyle(fontSize: 20),
-//       ),
-//     ],
-//   ),
-// ));
-// }

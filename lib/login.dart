@@ -1,6 +1,7 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:flutter/material.dart';
+import 'package:quranapp/drawer.dart';
 import 'package:quranapp/home.dart';
 // import 'package:quranapp/services/shared_preferences_service.dart';
 import 'package:quranapp/signup.dart';
@@ -80,7 +81,8 @@ class _LoginState extends State<Login> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                content: Text(e.toString()),
+                content: Text("Something went Wrong,check e-mail and password again"),
+                // content: Text(e.toString()),
               );
             });
       }
@@ -103,7 +105,7 @@ class _LoginState extends State<Login> {
             body: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("images/bg.jpg"),
+                  image: AssetImage("images/bg2.jpg"),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -113,7 +115,7 @@ class _LoginState extends State<Login> {
                   children: [
                     Container(
                       child: Image.asset(
-                        'images/logo.png',
+                        'images/logo1.png',
                         width: 100,
                         height: 150,
                       ),
@@ -122,7 +124,7 @@ class _LoginState extends State<Login> {
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(10),
                         child: const Text(
-                          'Quran App',
+                          'القرآن الكريم',
                           style: TextStyle(
                               fontSize: 30,
                               color: Color.fromARGB(255, 255, 255, 255)),
@@ -130,7 +132,7 @@ class _LoginState extends State<Login> {
                     Container(
                       padding: const EdgeInsets.all(10),
                       child: TextField(
-                        style: TextStyle(color: Colors.amber[800]),
+                        style: TextStyle(color: Color.fromARGB(255, 255, 191, 0),fontSize: 17),
                         cursorColor: Colors.red,
                         controller: emailController,
                         textInputAction: TextInputAction.next,
@@ -221,7 +223,7 @@ class _LoginState extends State<Login> {
                             padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: Color.fromARGB(255, 6, 23, 153),
+                                  primary: Color.fromARGB(255,4,56,100),
                                   // padding: EdgeInsets.fromLTRB(100, 0, 100, 0)
                                 ),
                                 onPressed: login,
@@ -258,7 +260,7 @@ class _LoginState extends State<Login> {
                               padding: const EdgeInsets.all(8.0),
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: Color.fromARGB(255, 6, 23, 153),
+                                      primary: Color.fromARGB(255,4,56,100),
                                       padding: const EdgeInsets.fromLTRB(
                                           100, 0, 100, 0)),
                                   onPressed: () {
