@@ -50,6 +50,11 @@ dependencies:
   screen: ^0.0.5
   syncfusion_flutter_pdfviewer: ^20.2.43-beta
   performance: ^0.1.1
+  rating_dialog: ^2.0.4
+  store_redirect: ^2.0.1
+  share_plus: ^4.0.10+1
+  adhan: ^1.1.16
+  hijri: ^3.0.0
   # advance_pdf_viewer: ^2.0.1
 
 dev_dependencies:
@@ -79,6 +84,8 @@ flutter:
     - images/bg.jpg
     - images/bg1.jpg
     - images/1.jpg
+    - images/nu.jpg
+    - images/ne.jpg
     - images/bg2.jpg
     - images/quran.png
     - images/splashscreen.png
@@ -96,6 +103,8 @@ flutter:
     - images/icon4.png
     - images/icon5.png
     - images/icon6.png
+    - images/icon7.png
+    - images/icon8.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

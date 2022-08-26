@@ -19,8 +19,8 @@ class _resetState extends State<reset> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Reset Password'),
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.amber,
+        foregroundColor: Color.fromARGB(255, 240, 238, 238),
+        backgroundColor: Color.fromARGB(255, 5, 70, 123),
       ),
       body: Column(
         children: [
@@ -72,7 +72,7 @@ class _resetState extends State<reset> {
             children: [
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.amber[800],
+                    primary: Color.fromARGB(255, 5, 70, 123),
                     // padding: EdgeInsets.fromLTRB(100, 0, 100, 0)
                   ),
                   onPressed: () {

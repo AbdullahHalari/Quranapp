@@ -170,16 +170,16 @@ class _SignupState extends State<Signup> {
                             cursorColor: Colors.red,
                             controller: emailController,
                             textInputAction: TextInputAction.next,
-                            // onChanged: (val) {
-                            //   final trimVal = val.trim();
-                            //   if (val != trimVal)
-                            //     setState(() {
-                            //       emailController.text = trimVal;
-                            //       emailController.selection =
-                            //           TextSelection.fromPosition(
-                            //               TextPosition(offset: trimVal.length));
-                            //     });
-                            // },
+                            onChanged: (val) {
+                              final trimVal = val.trim();
+                              if (val != trimVal)
+                                setState(() {
+                                  emailController.text = trimVal;
+                                  emailController.selection =
+                                      TextSelection.fromPosition(
+                                          TextPosition(offset: trimVal.length));
+                                });
+                            },
                             decoration: InputDecoration(
                               prefixIcon: const Icon(
                                 Icons.email,

@@ -69,6 +69,20 @@ class _Quran_apiState extends State<Quran_api> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              centerTitle: true,
+              iconTheme: IconThemeData(color: Color.fromARGB(255, 5, 70, 123)),
+              title: const Text(
+                "القرآن الكريم",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 5, 70, 123),
+                ),
+              ),
+      ),
         body: FutureBuilder(
             future: getArticle(),
             builder: (context, AsyncSnapshot snapshot) {

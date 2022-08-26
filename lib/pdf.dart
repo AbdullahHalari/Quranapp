@@ -25,7 +25,6 @@ class _pdfState extends State<pdf> {
   // late int currentPage;
   // late SharedPreferences prefs;
   int _actualPageNumber = _initialPage, _allPagesCount = 0;
-  bool isSampleDoc = true;
   late PdfControllerPinch _pdfController;
 
   // void setLastViewedPage(int _currentPage) async {
